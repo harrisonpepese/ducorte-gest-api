@@ -1,7 +1,9 @@
 export type FuncionarioDto = {
-    sobrenome: string,
     nome:string,
+    sobrenome: string,
+    sexo:string,
     telefone:string,
+    cpf:string,
     cnpj:string,
     comisao:number,
 }

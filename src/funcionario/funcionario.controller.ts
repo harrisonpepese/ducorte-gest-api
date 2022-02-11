@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { ListDto } from 'src/interfaces/list.dto';
 import { FuncionarioDto } from './dto/FuncionarioDto';
 import { FuncionarioService } from './funcionario.service';
 import { Funcionario } from './schema/funcionarioSchema';
@@ -6,6 +7,10 @@ import { Funcionario } from './schema/funcionarioSchema';
 @Controller('funcionario')
 export class FuncionarioController {
     constructor(private funcionarioService: FuncionarioService){}
+    @Get("/list")
+    async list(): Promise<ListDto[]>{
+        return await this.funcionarioService.list()
+    }
     @Get()
     async findAll(): Promise<Funcionario[]>{
         return await this.funcionarioService.findAll()

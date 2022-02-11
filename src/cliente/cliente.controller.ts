@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Req } from '@nestjs/common';
+import { ListDto } from 'src/interfaces/list.dto';
 import { ClienteService } from './cliente.service';
 import { ClienteDto } from './dto/cliente.dto';
 import { Cliente } from './schema/cliente.schema';
@@ -9,6 +10,10 @@ export class ClienteController {
     @Get()
     async findAll(): Promise<Cliente[]>{
         return await this.clienteService.findAll()
+    }
+    @Get("/list")
+    async list(): Promise<ListDto[]>{
+        return await this.clienteService.list()
     }
     @Post()
     async create(@Body() clienteDto:ClienteDto): Promise<Cliente>{

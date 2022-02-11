@@ -1,11 +1,16 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { ListDto } from 'src/interfaces/list.dto';
 import { ServicoDto } from './dto/servico.dto';
 import { Servico } from './schema/servico.schema';
-import { ServicosService } from './servicos.service';
+import { ServicoService } from './servicos.service';
 
-@Controller('servicos')
-export class ServicosController {
-    constructor(private service: ServicosService){}
+@Controller('servico')
+export class ServicoController {
+    constructor(private service: ServicoService){}
+    @Get("/list")
+    async list(): Promise<ListDto[]>{
+        return await this.service.list()
+    }
     @Get()
     async findAll(): Promise<Servico[]>{
         return await this.service.findAll()

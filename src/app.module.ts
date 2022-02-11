@@ -6,12 +6,12 @@ import { ClienteModule } from './cliente/cliente.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { FuncionarioModule } from './funcionario/funcionario.module';
 import { AgendamentoModule } from './agendamento/agendamento.module';
-import { ServicosModule } from './servicos/servicos.module';
+import { ServicoModule } from './servico/servico.module';
 import { AuthModule } from './auth/auth.module';
 import { AccountModule } from './account/account.module';
 
 @Module({
-  imports: [MongooseModule.forRoot('mongodb+srv://PbotApp:17yxzl2mSmE9GVDJ@cluster0.lchwd.mongodb.net/Pbot?retryWrites=true&w=majority'),ClienteModule, FuncionarioModule, AgendamentoModule, ServicosModule, AuthModule, AccountModule],
+  imports: [MongooseModule.forRoot(process.env.MONGO_URI),ClienteModule, FuncionarioModule, AgendamentoModule, ServicoModule, AuthModule, AccountModule],
   controllers: [AppController],
   providers: [AppService],
 })

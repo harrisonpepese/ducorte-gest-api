@@ -14,12 +14,12 @@ export class CrudService<Type, Dto> {
         return this.model.find().exec();
     }
     async findById(id:string):Promise<Type>{
-        return this.model.findOne({id:id}).exec();
+        return this.model.findOne({_id:id}).exec();
     }
     async update(id:string,dto:Dto):Promise<any>{
         return this.model.updateOne({_id:id},{$set:dto}).exec();
     }
     async delete(id:string):Promise<any>{
-        return this.model.deleteOne({id:id}).exec();
+        return this.model.deleteOne({_id:id}).exec();
     }
 }
