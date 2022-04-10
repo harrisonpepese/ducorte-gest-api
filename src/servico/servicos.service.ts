@@ -11,8 +11,4 @@ export class ServicoService extends CrudService<Servico,ServicoDto>{
     constructor(@InjectModel(Servico.name) model: Model<ServicoDocument>){
         super(model)
     }
-    async list():Promise<ListDto[]>{
-        const data = await this.findAll();
-        return data.map((item):ListDto=>({id:item._id,primary:`${item.nome}`,secodary:`${item.valor}`}));
-    }
 }

@@ -1,6 +1,6 @@
 import { Dayjs } from "dayjs";
 
-export type AgendamentoDto ={
+export type AtendimentoDto ={
     cliente:string,
     funcionario:string,
     horario:string,

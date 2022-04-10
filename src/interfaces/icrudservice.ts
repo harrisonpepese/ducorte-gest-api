@@ -1,7 +1,7 @@
-export default interface ICrudService<T,M>{
-    create(dto:M):Promise<T>
-    update(id:string,dto:M):Promise<T>
-    findById(id:string):Promise<T>
-    findAll():Promise<T[]>
-    delete(id:string):Promise<T>
+export default interface ICrudService<entity,model>{
+    create(dto:model):Promise<entity>
+    update(id:string,dto:model):Promise<entity>
+    findById(id:string):Promise<entity>
+    find():Promise<entity[]>
+    delete(id:string):Promise<entity>
 }

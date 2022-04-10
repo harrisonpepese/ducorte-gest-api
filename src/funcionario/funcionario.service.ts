@@ -11,9 +11,4 @@ export class FuncionarioService extends CrudService<Funcionario,FuncionarioDto> 
     constructor(@InjectModel(Funcionario.name) model: Model<FuncionarioDocument>){
         super(model);
     }
-    async list():Promise<ListDto[]>{
-        const data = await this.findAll();
-        return data.map((item):ListDto=>({id:item._id,primary:`${item.nome} ${item.sobrenome}`,secodary:item.telefone}));
-    }
-
 }

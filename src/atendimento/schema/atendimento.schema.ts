@@ -5,17 +5,17 @@ import { Cliente } from 'src/cliente/schema/cliente.schema';
 import { Funcionario } from 'src/funcionario/schema/funcionarioSchema';
 import { Servico } from 'src/servico/schema/servico.schema';
 
-export type AgendamentoDocument = Agendamento & Document;
+export type AtendimentoDocument = Atendimento & Document;
 @Schema()
-export class Agendamento {
+export class Atendimento {
    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Clientes' })
    cliente:Cliente
    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Funcionarios' })
    funcionario:Funcionario
    @Prop()
-   horario:string
+   data:Date
    @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'Servicos' })
    servicos: Servico[]
 }
 
-export const AgendamentoSchema = SchemaFactory.createForClass(Agendamento);
+export const AtendimentoSchema = SchemaFactory.createForClass(Atendimento);

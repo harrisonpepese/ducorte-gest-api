@@ -1,22 +1,23 @@
 import { InjectModel } from "@nestjs/mongoose";
 import { Document, Model } from "mongoose";
+import ICrudService from "src/interfaces/icrudservice";
 
-export class CrudService<Type, Dto> {
-    model:Model<Type & Document>
-    constructor(model:Model<Type & Document>){
+export class CrudService<entity, dto> implements ICrudService<entity,dto> {
+    model:Model<entity & Document>
+    constructor(model:Model<entity & Document>){
         this.model = model;
     }
-    async create(dto:Dto):Promise<Type>{
+    async find(): Promise<entity[]> {
+        return this.model.find().exec();
+    }
+    async create(dto:dto):Promise<entity>{
         const criado = new this.model(dto);
         return criado.save();
     }
-    async findAll():Promise<Type[]>{
-        return this.model.find().exec();
-    }
-    async findById(id:string):Promise<Type>{
+    async findById(id:string):Promise<entity>{
         return this.model.findOne({_id:id}).exec();
     }
-    async update(id:string,dto:Dto):Promise<any>{
+    async update(id:string,dto:dto):Promise<any>{
         return this.model.updateOne({_id:id},{$set:dto}).exec();
     }
     async delete(id:string):Promise<any>{

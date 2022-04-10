@@ -7,13 +7,9 @@ import { Funcionario } from './schema/funcionarioSchema';
 @Controller('funcionario')
 export class FuncionarioController {
     constructor(private funcionarioService: FuncionarioService){}
-    @Get("/list")
-    async list(): Promise<ListDto[]>{
-        return await this.funcionarioService.list()
-    }
     @Get()
-    async findAll(): Promise<Funcionario[]>{
-        return await this.funcionarioService.findAll()
+    async find(): Promise<Funcionario[]>{
+        return await this.funcionarioService.find()
     }
     @Post()
     async create(@Body() funcionarioDto:FuncionarioDto): Promise<Funcionario>{

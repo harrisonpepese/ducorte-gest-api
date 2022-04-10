@@ -7,13 +7,10 @@ import { ServicoService } from './servicos.service';
 @Controller('servico')
 export class ServicoController {
     constructor(private service: ServicoService){}
-    @Get("/list")
-    async list(): Promise<ListDto[]>{
-        return await this.service.list()
-    }
+    
     @Get()
-    async findAll(): Promise<Servico[]>{
-        return await this.service.findAll()
+    async find(): Promise<Servico[]>{
+        return await this.service.find();
     }
     @Post()
     async create(@Body() funcionarioDto:ServicoDto): Promise<Servico>{
