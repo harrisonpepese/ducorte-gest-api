@@ -13,7 +13,8 @@ export default class CrudController<entity,dto> implements ICrudController<entit
     }
     @Get(':id')
     async getOne(@Param('id') id: string): Promise<entity> {
-        return await this.service.findById(id);
+        const response = await this.service.findById(id)
+        return response;
     }
     @Post()
     async create(@Body() dto: dto): Promise<entity> {

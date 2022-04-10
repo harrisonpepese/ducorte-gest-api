@@ -15,7 +15,8 @@ export class CrudService<entity, dto> implements ICrudService<entity,dto> {
         return criado.save();
     }
     async findById(id:string):Promise<entity>{
-        return this.model.findOne({_id:id}).exec();
+        const entity = this.model.findById(id).exec();
+        return entity;
     }
     async update(id:string,dto:dto):Promise<any>{
         return this.model.updateOne({_id:id},{$set:dto}).exec();
