@@ -1,6 +1,6 @@
 import { InjectModel } from "@nestjs/mongoose";
 import { Document, Model } from "mongoose";
-import ICrudService from "src/interfaces/icrudservice";
+import ICrudService from "src/interfaces/service/icrudservice";
 
 export class CrudService<entity, dto> implements ICrudService<entity,dto> {
     model:Model<entity & Document>

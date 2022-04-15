@@ -4,7 +4,7 @@ import { AtendimentoService } from './atendimento.service';
 import { AtendimentoDto } from './dto/AtendimentoDto';
 import { Atendimento } from './schema/atendimento.schema';
 
-@Controller('agendamento')
+@Controller('atendimento')
 export class AtendimentoController extends CrudController<Atendimento,AtendimentoDto>{
     service: AtendimentoService
     constructor(private agendamentoService:AtendimentoService){

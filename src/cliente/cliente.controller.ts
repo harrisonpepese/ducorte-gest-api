@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Req } from '@nestjs/common';
 import CrudController from 'src/base/crud.controller';
-import IListDtoController from 'src/interfaces/ilistdto.controller';
+import IListDtoController from 'src/interfaces/controller/ilistdto.controller';
 import { ListDto } from 'src/interfaces/list.dto';
 import { ClienteService } from './cliente.service';
 import { ClienteDto } from './dto/cliente.dto';

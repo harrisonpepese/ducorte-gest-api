@@ -17,7 +17,7 @@ export class Funcionario{
     @Prop()
     cnpj:string
     @Prop()
-    comisaoServico:number
+    comissao:number
 }
 
 export const FuncionarioSchema = SchemaFactory.createForClass(Funcionario);

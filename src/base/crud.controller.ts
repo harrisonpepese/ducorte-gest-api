@@ -1,6 +1,6 @@
 import { Body, Delete, Get, Param, Post, Put } from "@nestjs/common";
-import ICrudController from "src/interfaces/icrudcontroller";
-import ICrudService from "src/interfaces/icrudservice";
+import ICrudController from "src/interfaces/controller/icrudcontroller";
+import ICrudService from "src/interfaces/service/icrudservice";
 
 export default class CrudController<entity,dto> implements ICrudController<entity,dto>{
     service:ICrudService<entity,dto>;

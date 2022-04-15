@@ -5,5 +5,5 @@ export type FuncionarioDto = {
     telefone:string,
     cpf:string,
     cnpj:string,
-    comisao:number,
+    comissao:number,
 }
