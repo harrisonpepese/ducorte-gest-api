@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Servico, ServicoSchema } from './schema/servico.schema';
+import { Servico, ServicoSchema } from './servico.entity';
 import { ServicoController } from './servico.controller';
+import { ServicoProfile } from './servico.profile';
 import { ServicoService } from './servicos.service';
 
 @Module({
   imports:[MongooseModule.forFeature([{name:Servico.name,schema:ServicoSchema}])],
   controllers: [ServicoController],
-  providers: [ServicoService]
+  providers: [ServicoProfile,ServicoService]
 })
 export class ServicoModule {}

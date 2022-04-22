@@ -2,11 +2,12 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { FuncionarioController } from './funcionario.controller';
 import { FuncionarioService } from './funcionario.service';
-import { Funcionario, FuncionarioSchema } from './schema/funcionarioSchema';
+import { Funcionario, FuncionarioSchema } from './funcionario.entity';
+import { FuncionarioProfile } from './funcionario.profile';
 
 @Module({
   imports:[MongooseModule.forFeature([{name:Funcionario.name,schema:FuncionarioSchema}])],
   controllers: [FuncionarioController],
-  providers: [FuncionarioService]
+  providers: [FuncionarioProfile, FuncionarioService]
 })
 export class FuncionarioModule {}

@@ -1,31 +1,56 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { addProfile, Mapper } from '@automapper/core';
+import { InjectMapper } from '@automapper/nestjs';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
+import ICrudController from 'src/interfaces/controller/icrudcontroller';
 import { ListDto } from 'src/interfaces/list.dto';
-import { ServicoDto } from './dto/servico.dto';
-import { Servico } from './schema/servico.schema';
+import { ServicoDto } from './servico.dto';
+import { Servico } from './servico.entity';
+import { ServicoProfile } from './servico.profile';
 import { ServicoService } from './servicos.service';
 
 @Controller('servico')
-export class ServicoController {
-    constructor(private service: ServicoService){}
-    
-    @Get()
-    async find(): Promise<Servico[]>{
-        return await this.service.find();
-    }
-    @Post()
-    async create(@Body() funcionarioDto:ServicoDto): Promise<Servico>{
-        return await this.service.create(funcionarioDto);
-    }
-    @Get(':id')
-    async getOne(@Param() params): Promise<Servico>{
-        return await this.service.findById(params.id);
-    }
-    @Put(':id')
-    async update(@Param() params, @Body() funcionarioDto:ServicoDto): Promise<Servico>{
-        return await this.service.update(params.id,funcionarioDto);
-    }
-    @Delete(':id')
-    async Delete(@Param() params): Promise<Servico>{
-        return await this.service.delete(params.id);
-    }
+export class ServicoController implements ICrudController<Servico, ServicoDto> {
+  constructor(
+    private service: ServicoService,
+    @InjectMapper() private readonly mapper: Mapper,
+    private readonly servicoProfile: ServicoProfile,
+  ) {
+    addProfile(mapper, servicoProfile.profile);
+  }
+
+  @Get()
+  async find(): Promise<ServicoDto[]> {
+    const result = await this.service.find();
+    return this.mapper.mapArray(result, Servico, ServicoDto);
+  }
+  @Post()
+  async create(@Body() funcionarioDto: ServicoDto): Promise<ServicoDto> {
+    const result = await this.service.create(funcionarioDto);
+    return this.mapper.map(result, Servico, ServicoDto);
+  }
+  @Get(':id')
+  async getOne(@Param('id') id: string): Promise<ServicoDto> {
+    const result = await this.service.findById(id);
+    return this.mapper.map(result, Servico, ServicoDto);
+  }
+  @Put(':id')
+  async update(
+    @Param('id') id: string,
+    @Body() funcionarioDto: ServicoDto,
+  ): Promise<ServicoDto> {
+    const result = await this.service.update(id, funcionarioDto);
+    return this.mapper.map(result, Servico, ServicoDto);
+  }
+  @Delete(':id')
+  async delete(@Param('id') id: string): Promise<void> {
+    return await this.service.delete(id);
+  }
 }
