@@ -24,7 +24,7 @@ export class ClienteController implements ICrudController<Cliente, ClienteDto> {
   constructor(
     private readonly clienteService: ClienteService,
     @InjectMapper() private readonly mapper: Mapper,
-    private readonly clienteProfile : ClienteProfile,
+    private readonly clienteProfile: ClienteProfile,
   ) {
     addProfile(mapper, clienteProfile.profile);
   }
@@ -33,15 +33,19 @@ export class ClienteController implements ICrudController<Cliente, ClienteDto> {
     const reponse = await this.clienteService.find();
     return reponse.map((x) => this.mapper.map(x, Cliente, ClienteDto));
   }
+  @Get(':id')
   getOne(id: string): Promise<ClienteDto> {
     throw new Error('Method not implemented.');
   }
+  @Post()
   create(dto: ClienteDto): Promise<ClienteDto> {
     throw new Error('Method not implemented.');
   }
+  @Put(':id')
   update(id: string, dto: ClienteDto): Promise<ClienteDto> {
     throw new Error('Method not implemented.');
   }
+  @Delete(':id')
   delete(id: string): Promise<void> {
     throw new Error('Method not implemented.');
   }

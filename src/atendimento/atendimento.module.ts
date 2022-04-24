@@ -10,6 +10,8 @@ import {
   FuncionarioSchema,
 } from 'src/funcionario/funcionario.entity';
 import { Servico, ServicoSchema } from 'src/servico/servico.entity';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [

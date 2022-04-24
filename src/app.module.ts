@@ -8,7 +8,7 @@ import { FuncionarioModule } from './funcionario/funcionario.module';
 import { AtendimentoModule } from './atendimento/atendimento.module';
 import { ServicoModule } from './servico/servico.module';
 import { AuthModule } from './auth/auth.module';
-import { AccountModule } from './account/account.module';
+import { UsuarioModule } from './usuario/usuario.module';
 import { AutomapperModule } from '@automapper/nestjs';
 import { classes } from '@automapper/classes';
 
@@ -26,7 +26,7 @@ import { classes } from '@automapper/classes';
     AtendimentoModule,
     ServicoModule,
     AuthModule,
-    AccountModule,
+    UsuarioModule,
   ],
   controllers: [AppController],
   providers: [AppService],

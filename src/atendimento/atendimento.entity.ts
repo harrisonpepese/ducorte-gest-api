@@ -17,7 +17,7 @@ export class Atendimento extends Document{
    @AutoMap()
    data:Date
    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Servico.name })
-   @AutoMap()
+   @AutoMap(()=>Servico)
    servicos: Servico[]
 }
 

@@ -1,4 +1,5 @@
 import { AutoMap } from "@automapper/classes";
+import { ServicoDto } from "src/servico/servico.dto";
 import { Servico } from "src/servico/servico.entity";
 
 export class AtendimentoDto {
@@ -9,6 +10,10 @@ export class AtendimentoDto {
     funcionarioName:string;
     @AutoMap()
     data:string;
-    @AutoMap()
-    servicos: Servico[]
+    @AutoMap(()=>ServicoDto)
+    servicos: ServicoDto[]
+}
+export class AtendimentoServicoDto {
+    id:string;
+    nome:string;
 }
