@@ -1,8 +1,8 @@
-import { InjectModel } from '@nestjs/mongoose';
+import { HttpException, HttpStatus } from '@nestjs/common';
 import { Document, Model } from 'mongoose';
 import ICrudService from 'src/interfaces/service/icrudservice';
 
-export class CrudService<entity, dto> implements ICrudService<entity, dto> {
+export class CrudService<entity> implements ICrudService<entity> {
   model: Model<entity & Document>;
   constructor(model: Model<entity & Document>) {
     this.model = model;
@@ -10,7 +10,7 @@ export class CrudService<entity, dto> implements ICrudService<entity, dto> {
   async find(): Promise<entity[]> {
     return this.model.find().exec();
   }
-  async create(dto: dto): Promise<entity> {
+  async create(dto: entity): Promise<entity> {
     const criado = new this.model(dto);
     return criado.save();
   }
@@ -18,10 +18,17 @@ export class CrudService<entity, dto> implements ICrudService<entity, dto> {
     const entity = this.model.findById(id).exec();
     return entity;
   }
-  async update(id: string, dto: dto): Promise<any> {
+  async update(id: string, dto: entity): Promise<any> {
     return this.model.updateOne({ _id: id }, { $set: dto }).exec();
   }
   async delete(id: string): Promise<any> {
+    const entity = await this.findById(id);
+    if (!entity) {
+      throw new HttpException(
+        'Dado não encontrado no sistema',
+        HttpStatus.NOT_FOUND,
+      );
+    }
     return this.model.deleteOne({ _id: id }).exec();
   }
 }

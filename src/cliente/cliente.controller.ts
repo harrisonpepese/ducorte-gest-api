@@ -6,16 +6,13 @@ import {
   Param,
   Post,
   Put,
-  Req,
 } from '@nestjs/common';
 
-import IListDtoController from 'src/interfaces/controller/ilistdto.controller';
-import { ListDto } from 'src/interfaces/list.dto';
 import { ClienteService } from './cliente.service';
 import { ClienteDto } from './cliente.dto';
 import { Cliente } from './cliente.entity';
 import ICrudController from 'src/interfaces/controller/icrudcontroller';
-import { addProfile, createMap, Mapper } from '@automapper/core';
+import { addProfile, Mapper } from '@automapper/core';
 import { InjectMapper, MapPipe } from '@automapper/nestjs';
 import { ClienteProfile } from './cliente.profile';
 
@@ -41,7 +38,7 @@ export class ClienteController implements ICrudController<Cliente, ClienteDto> {
   @Post()
   async create(
     @Body(MapPipe(ClienteDto, Cliente))
-    dto: ClienteDto,
+    dto: Cliente,
   ): Promise<ClienteDto> {
     const response = await this.clienteService.create(dto);
     return this.mapper.map(response, Cliente, ClienteDto);
@@ -49,7 +46,7 @@ export class ClienteController implements ICrudController<Cliente, ClienteDto> {
   @Put(':id')
   async update(
     @Param('id') id: string,
-    @Body(MapPipe(ClienteDto, Cliente)) dto: ClienteDto,
+    @Body(MapPipe(ClienteDto, Cliente)) dto: Cliente,
   ): Promise<ClienteDto> {
     const response = await this.clienteService.update(id, dto);
     return this.mapper.map(response, Cliente, ClienteDto);

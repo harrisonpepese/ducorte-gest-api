@@ -34,7 +34,7 @@ export class FuncionarioController
   }
   @Post()
   async create(
-    @Body(MapPipe(FuncionarioDto, Funcionario)) funcionarioDto: FuncionarioDto,
+    @Body(MapPipe(FuncionarioDto, Funcionario)) funcionarioDto: Funcionario,
   ): Promise<FuncionarioDto> {
     const result = await this.funcionarioService.create(funcionarioDto);
     return this.mapper.map(result, Funcionario, FuncionarioDto);
@@ -47,7 +47,7 @@ export class FuncionarioController
   @Put(':id')
   async update(
     @Param('id') params,
-    @Body(MapPipe(FuncionarioDto, Funcionario)) funcionarioDto: FuncionarioDto,
+    @Body(MapPipe(FuncionarioDto, Funcionario)) funcionarioDto: Funcionario,
   ): Promise<FuncionarioDto> {
     return await this.funcionarioService.update(params.id, funcionarioDto);
   }

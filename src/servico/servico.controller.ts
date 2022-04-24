@@ -10,7 +10,6 @@ import {
   Put,
 } from '@nestjs/common';
 import ICrudController from 'src/interfaces/controller/icrudcontroller';
-import { ListDto } from 'src/interfaces/list.dto';
 import { ServicoDto } from './servico.dto';
 import { Servico } from './servico.entity';
 import { ServicoProfile } from './servico.profile';
@@ -33,7 +32,7 @@ export class ServicoController implements ICrudController<Servico, ServicoDto> {
   }
   @Post()
   async create(
-    @Body(MapPipe(ServicoDto, Servico)) funcionarioDto: ServicoDto,
+    @Body(MapPipe(ServicoDto, Servico)) funcionarioDto: Servico,
   ): Promise<ServicoDto> {
     const result = await this.service.create(funcionarioDto);
     return this.mapper.map(result, Servico, ServicoDto);
@@ -46,7 +45,7 @@ export class ServicoController implements ICrudController<Servico, ServicoDto> {
   @Put(':id')
   async update(
     @Param('id') id: string,
-    @Body(MapPipe(ServicoDto, Servico)) funcionarioDto: ServicoDto,
+    @Body(MapPipe(ServicoDto, Servico)) funcionarioDto: Servico,
   ): Promise<ServicoDto> {
     const result = await this.service.update(id, funcionarioDto);
     return this.mapper.map(result, Servico, ServicoDto);

@@ -1,9 +1,17 @@
-import { Controller, Get } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import ICrudController from 'src/interfaces/controller/icrudcontroller';
 import { AtendimentoService } from './atendimento.service';
 import { AtendimentoDto } from './atendimento.dto';
 import { Atendimento } from './atendimento.entity';
-import { InjectMapper } from '@automapper/nestjs';
+import { InjectMapper, MapPipe } from '@automapper/nestjs';
 import { Mapper } from '@automapper/core';
 
 @Controller('atendimento')
@@ -19,16 +27,28 @@ export class AtendimentoController
     const result = await this.atendimentoService.find();
     return this.mapper.mapArray(result, Atendimento, AtendimentoDto);
   }
-  getOne(id: string): Promise<AtendimentoDto> {
-    throw new Error('Method not implemented.');
+  @Get(':id')
+  async getOne(@Param('id') id: string): Promise<AtendimentoDto> {
+    const result = await this.atendimentoService.findById(id);
+    return this.mapper.map(result, Atendimento, AtendimentoDto);
   }
-  create(dto: AtendimentoDto): Promise<AtendimentoDto> {
-    throw new Error('Method not implemented.');
+  @Post()
+  async create(
+    @Body(MapPipe(AtendimentoDto, Atendimento)) dto: Atendimento,
+  ): Promise<AtendimentoDto> {
+    const result = await this.atendimentoService.create(dto);
+    return this.mapper.map(result, Atendimento, AtendimentoDto);
   }
-  update(id: string, dto: AtendimentoDto): Promise<AtendimentoDto> {
-    throw new Error('Method not implemented.');
+  @Put(':id')
+  async update(
+    @Param('id') id: string,
+    @Body(MapPipe(AtendimentoDto, Atendimento)) dto: Atendimento,
+  ): Promise<AtendimentoDto> {
+    const result = await this.atendimentoService.create(dto);
+    return this.mapper.map(result, Atendimento, AtendimentoDto);
   }
-  delete(id: string): Promise<void> {
-    throw new Error('Method not implemented.');
+  @Delete(':id')
+  async delete(@Param('id') id: string): Promise<void> {
+    await this.atendimentoService.delete(id);
   }
 }

@@ -1,6 +1,5 @@
 import { AutoMap } from '@automapper/classes';
 import { ServicoDto } from 'src/servico/servico.dto';
-import { Servico } from 'src/servico/servico.entity';
 
 export class AtendimentoDto {
   id: string;
