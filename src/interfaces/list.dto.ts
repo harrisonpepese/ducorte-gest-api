@@ -1,5 +1,5 @@
 export type ListDto = {
-    id: string,
-    primary:string,
-    secodary:string,
-}
+  id: string;
+  primary: string;
+  secodary: string;
+};

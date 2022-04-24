@@ -22,27 +22,27 @@ export class FuncionarioController
   constructor(
     private funcionarioService: FuncionarioService,
     @InjectMapper() private readonly mapper: Mapper,
-    private readonly funcionarioProfile: FuncionarioProfile
+    private readonly funcionarioProfile: FuncionarioProfile,
   ) {
-    addProfile(mapper,funcionarioProfile.profile)
+    addProfile(mapper, funcionarioProfile.profile);
   }
 
   @Get()
   async find(): Promise<FuncionarioDto[]> {
     const result = await this.funcionarioService.find();
-    return this.mapper.mapArray(result,Funcionario,FuncionarioDto)
+    return this.mapper.mapArray(result, Funcionario, FuncionarioDto);
   }
   @Post()
   async create(
     @Body() funcionarioDto: FuncionarioDto,
   ): Promise<FuncionarioDto> {
     const result = await this.funcionarioService.create(funcionarioDto);
-    return this.mapper.map(result,Funcionario,FuncionarioDto)
+    return this.mapper.map(result, Funcionario, FuncionarioDto);
   }
   @Get(':id')
-  async getOne(@Param('id') id:string): Promise<FuncionarioDto> {
+  async getOne(@Param('id') id: string): Promise<FuncionarioDto> {
     const result = await this.funcionarioService.findById(id);
-    return this.mapper.map(result,Funcionario,FuncionarioDto)
+    return this.mapper.map(result, Funcionario, FuncionarioDto);
   }
   @Put(':id')
   async update(

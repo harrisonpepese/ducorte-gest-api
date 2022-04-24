@@ -7,8 +7,13 @@ import { FuncionarioDto } from './funcionario.dto';
 import { Funcionario, FuncionarioDocument } from './funcionario.entity';
 
 @Injectable()
-export class FuncionarioService extends CrudService<Funcionario,FuncionarioDto> {
-    constructor(@InjectModel(Funcionario.name) model: Model<FuncionarioDocument>){
-        super(model);
-    }
+export class FuncionarioService extends CrudService<
+  Funcionario,
+  FuncionarioDto
+> {
+  constructor(
+    @InjectModel(Funcionario.name) model: Model<FuncionarioDocument>,
+  ) {
+    super(model);
+  }
 }

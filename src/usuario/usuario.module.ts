@@ -4,10 +4,10 @@ import { Usuario, UsuarioSchema } from './usuario.entity';
 import { UsuarioService } from './usuario.service';
 
 @Module({
-  imports:[
+  imports: [
     MongooseModule.forFeature([{ name: Usuario.name, schema: UsuarioSchema }]),
   ],
   providers: [UsuarioService],
-  exports:[UsuarioService]
+  exports: [UsuarioService],
 })
 export class UsuarioModule {}

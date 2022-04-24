@@ -1,4 +1,11 @@
-import { Controller, Request, Post, UseGuards, Get, Body } from '@nestjs/common';
+import {
+  Controller,
+  Request,
+  Post,
+  UseGuards,
+  Get,
+  Body,
+} from '@nestjs/common';
 import { AuthService } from './auth/auth.service';
 import { JwtAuthGuard } from './auth/guards/jwt.guard';
 import { LocalAuthGuard } from './auth/guards/local.guard';
@@ -14,8 +21,7 @@ export class AppController {
   }
 
   @Post('auth/singUp')
-  async cadastrar(@Body() userSingup:UsuarioSingUp) {
+  async cadastrar(@Body() userSingup: UsuarioSingUp) {
     const user = await this.authService.SingUp(userSingup);
-   
   }
 }

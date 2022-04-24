@@ -2,7 +2,7 @@ import { createMap, forMember, mapFrom, Mapper } from '@automapper/core';
 import { AutomapperProfile, InjectMapper } from '@automapper/nestjs';
 import { Injectable } from '@nestjs/common';
 import { UserDto } from './usuario.dto';
-import { Usuario} from './usuario.entity';
+import { Usuario } from './usuario.entity';
 
 @Injectable()
 export class UsuarioProfile extends AutomapperProfile {

@@ -12,6 +12,6 @@ import { ClienteService } from './cliente.service';
     MongooseModule.forFeature([{ name: Cliente.name, schema: ClienteSchema }]),
   ],
   controllers: [ClienteController],
-  providers: [ ClienteProfile, ClienteService],
+  providers: [ClienteProfile, ClienteService],
 })
 export class ClienteModule {}

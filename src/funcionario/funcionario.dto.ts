@@ -1,12 +1,12 @@
 import { AutoMap } from '@automapper/classes';
 
 export class FuncionarioDto {
-  id:string;
+  id: string;
   @AutoMap()
   nome: string;
   @AutoMap()
   sobrenome: string;
-  nomeCompleto:string;
+  nomeCompleto: string;
   @AutoMap()
   sexo: string;
   @AutoMap()

@@ -18,10 +18,15 @@ export class ServicoProfile extends AutomapperProfile {
   }
   override get profile(): MappingProfile {
     return (mapper: Mapper) => {
-      createMap(mapper, Servico, ServicoDto, forMember(
-        (destination) => destination.id,
-        mapFrom((source) => source._id),
-      ),),
+      createMap(
+        mapper,
+        Servico,
+        ServicoDto,
+        forMember(
+          (destination) => destination.id,
+          mapFrom((source) => source._id),
+        ),
+      ),
         createMap(mapper, ServicoDto, Servico);
     };
   }

@@ -5,7 +5,6 @@ import { Document } from 'mongoose';
 export type ServicoDocument = Servico & Document;
 @Schema()
 export class Servico extends Document {
-
   @Prop()
   @AutoMap()
   nome: string;

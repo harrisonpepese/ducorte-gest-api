@@ -8,8 +8,12 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { APP_GUARD } from '@nestjs/core';
 
 @Module({
-  imports:[MongooseModule.forFeature([{name:Funcionario.name,schema:FuncionarioSchema}])],
+  imports: [
+    MongooseModule.forFeature([
+      { name: Funcionario.name, schema: FuncionarioSchema },
+    ]),
+  ],
   controllers: [FuncionarioController],
-  providers: [FuncionarioProfile, FuncionarioService]
+  providers: [FuncionarioProfile, FuncionarioService],
 })
 export class FuncionarioModule {}
