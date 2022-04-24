@@ -1,5 +1,5 @@
 import { addProfile, Mapper } from '@automapper/core';
-import { InjectMapper } from '@automapper/nestjs';
+import { InjectMapper, MapPipe } from '@automapper/nestjs';
 import {
   Body,
   Controller,
@@ -32,7 +32,9 @@ export class ServicoController implements ICrudController<Servico, ServicoDto> {
     return this.mapper.mapArray(result, Servico, ServicoDto);
   }
   @Post()
-  async create(@Body() funcionarioDto: ServicoDto): Promise<ServicoDto> {
+  async create(
+    @Body(MapPipe(ServicoDto, Servico)) funcionarioDto: ServicoDto,
+  ): Promise<ServicoDto> {
     const result = await this.service.create(funcionarioDto);
     return this.mapper.map(result, Servico, ServicoDto);
   }
@@ -44,7 +46,7 @@ export class ServicoController implements ICrudController<Servico, ServicoDto> {
   @Put(':id')
   async update(
     @Param('id') id: string,
-    @Body() funcionarioDto: ServicoDto,
+    @Body(MapPipe(ServicoDto, Servico)) funcionarioDto: ServicoDto,
   ): Promise<ServicoDto> {
     const result = await this.service.update(id, funcionarioDto);
     return this.mapper.map(result, Servico, ServicoDto);

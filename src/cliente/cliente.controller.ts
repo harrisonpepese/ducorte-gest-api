@@ -16,7 +16,7 @@ import { ClienteDto } from './cliente.dto';
 import { Cliente } from './cliente.entity';
 import ICrudController from 'src/interfaces/controller/icrudcontroller';
 import { addProfile, createMap, Mapper } from '@automapper/core';
-import { InjectMapper } from '@automapper/nestjs';
+import { InjectMapper, MapPipe } from '@automapper/nestjs';
 import { ClienteProfile } from './cliente.profile';
 
 @Controller('cliente')
@@ -34,19 +34,28 @@ export class ClienteController implements ICrudController<Cliente, ClienteDto> {
     return reponse.map((x) => this.mapper.map(x, Cliente, ClienteDto));
   }
   @Get(':id')
-  getOne(id: string): Promise<ClienteDto> {
-    throw new Error('Method not implemented.');
+  async getOne(@Param('id') id: string): Promise<ClienteDto> {
+    const response = await this.clienteService.findById(id);
+    return this.mapper.map(response, Cliente, ClienteDto);
   }
   @Post()
-  create(dto: ClienteDto): Promise<ClienteDto> {
-    throw new Error('Method not implemented.');
+  async create(
+    @Body(MapPipe(ClienteDto, Cliente))
+    dto: ClienteDto,
+  ): Promise<ClienteDto> {
+    const response = await this.clienteService.create(dto);
+    return this.mapper.map(response, Cliente, ClienteDto);
   }
   @Put(':id')
-  update(id: string, dto: ClienteDto): Promise<ClienteDto> {
-    throw new Error('Method not implemented.');
+  async update(
+    @Param('id') id: string,
+    @Body(MapPipe(ClienteDto, Cliente)) dto: ClienteDto,
+  ): Promise<ClienteDto> {
+    const response = await this.clienteService.update(id, dto);
+    return this.mapper.map(response, Cliente, ClienteDto);
   }
   @Delete(':id')
-  delete(id: string): Promise<void> {
-    throw new Error('Method not implemented.');
+  async delete(@Param('id') id: string): Promise<void> {
+    await this.clienteService.delete(id);
   }
 }

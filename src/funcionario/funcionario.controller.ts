@@ -11,7 +11,7 @@ import { FuncionarioDto } from './funcionario.dto';
 import { FuncionarioService } from './funcionario.service';
 import { Funcionario } from './funcionario.entity';
 import ICrudController from 'src/interfaces/controller/icrudcontroller';
-import { InjectMapper } from '@automapper/nestjs';
+import { InjectMapper, MapPipe } from '@automapper/nestjs';
 import { addProfile, Mapper } from '@automapper/core';
 import { FuncionarioProfile } from './funcionario.profile';
 
@@ -34,7 +34,7 @@ export class FuncionarioController
   }
   @Post()
   async create(
-    @Body() funcionarioDto: FuncionarioDto,
+    @Body(MapPipe(FuncionarioDto, Funcionario)) funcionarioDto: FuncionarioDto,
   ): Promise<FuncionarioDto> {
     const result = await this.funcionarioService.create(funcionarioDto);
     return this.mapper.map(result, Funcionario, FuncionarioDto);
@@ -47,7 +47,7 @@ export class FuncionarioController
   @Put(':id')
   async update(
     @Param('id') params,
-    @Body() funcionarioDto: FuncionarioDto,
+    @Body(MapPipe(FuncionarioDto, Funcionario)) funcionarioDto: FuncionarioDto,
   ): Promise<FuncionarioDto> {
     return await this.funcionarioService.update(params.id, funcionarioDto);
   }
