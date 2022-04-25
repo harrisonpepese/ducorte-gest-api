@@ -22,6 +22,10 @@ export class AtendimentoProfile extends AutomapperProfile {
         Atendimento,
         AtendimentoDto,
         forMember(
+          (destination) => destination.id,
+          mapFrom((source) => source.id),
+        ),
+        forMember(
           (destination) => destination.clienteId,
           mapFrom((source) => source.cliente._id),
         ),
@@ -43,7 +47,15 @@ export class AtendimentoProfile extends AutomapperProfile {
           ),
         ),
       ),
-        createMap(mapper, AtendimentoDto, Atendimento);
+        createMap(
+          mapper,
+          AtendimentoDto,
+          Atendimento,
+          forMember(
+            (destination) => destination.id,
+            mapFrom((source) => source.id),
+          ),
+        );
     };
   }
 }
