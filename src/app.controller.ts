@@ -19,7 +19,10 @@ export class AppController {
   async login(@Request() req) {
     return this.authService.login(req.user);
   }
-
+  @Get()
+  async hello() {
+    return 'Server is online';
+  }
   @Post('auth/singUp')
   async cadastrar(@Body() userSingup: UsuarioSingUp) {
     const user = await this.authService.SingUp(userSingup);
