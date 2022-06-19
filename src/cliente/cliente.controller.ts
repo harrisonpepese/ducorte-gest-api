@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 
 import { ClienteService } from './cliente.service';
@@ -15,8 +16,10 @@ import ICrudController from 'src/interfaces/controller/icrudcontroller';
 import { addProfile, Mapper } from '@automapper/core';
 import { InjectMapper, MapPipe } from '@automapper/nestjs';
 import { ClienteProfile } from './cliente.profile';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 
 @Controller('cliente')
+@UseGuards(JwtAuthGuard)
 export class ClienteController implements ICrudController<Cliente, ClienteDto> {
   constructor(
     private readonly clienteService: ClienteService,

@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import ICrudController from 'src/interfaces/controller/icrudcontroller';
 import { AtendimentoService } from './atendimento.service';
@@ -13,8 +14,10 @@ import { AtendimentoDto } from './atendimento.dto';
 import { Atendimento } from './atendimento.entity';
 import { InjectMapper, MapPipe } from '@automapper/nestjs';
 import { Mapper } from '@automapper/core';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 
 @Controller('atendimento')
+@UseGuards(JwtAuthGuard)
 export class AtendimentoController
   implements ICrudController<Atendimento, AtendimentoDto>
 {

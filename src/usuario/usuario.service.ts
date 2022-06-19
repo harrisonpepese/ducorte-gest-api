@@ -23,12 +23,12 @@ export class UsuarioService {
     usuarioDto.password = await this.hashPassword(usuarioDto.password);
     return await this.model.create(usuarioDto);
   }
-  async findByUserName(userName: string): Promise<Usuario | undefined> {
-    return await this.model.findOne({ userName });
+  async findByUserName(username: string): Promise<Usuario | undefined> {
+    return await this.model.findOne({ username: username });
   }
   async findBySingInDto(userDto: UsuarioSingUp): Promise<Usuario | undefined> {
     return await this.model.findOne({
-      $or: [{ username: userDto.userName }, { email: userDto.email }],
+      $or: [{ username: userDto.username }, { email: userDto.email }],
     });
   }
   async changePassword(userName: string, newPassword: string) {

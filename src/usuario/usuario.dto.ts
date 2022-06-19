@@ -1,13 +1,12 @@
 export class UsuarioSingUp {
-  userName: string;
+  username: string;
   password: string;
   email: string;
-  funcionarioId: string;
-  funcionarioName: string;
+  funcionarioId?: string;
 }
 
 export class UserDto {
   id: string;
-  userName: string;
+  username: string;
   email: string;
 }

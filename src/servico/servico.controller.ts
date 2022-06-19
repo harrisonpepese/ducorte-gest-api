@@ -8,7 +8,9 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import ICrudController from 'src/interfaces/controller/icrudcontroller';
 import { ServicoDto } from './servico.dto';
 import { Servico } from './servico.entity';
@@ -16,6 +18,7 @@ import { ServicoProfile } from './servico.profile';
 import { ServicoService } from './servicos.service';
 
 @Controller('servico')
+@UseGuards(JwtAuthGuard)
 export class ServicoController implements ICrudController<Servico, ServicoDto> {
   constructor(
     private service: ServicoService,
