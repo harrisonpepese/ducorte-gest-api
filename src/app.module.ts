@@ -11,12 +11,14 @@ import { AuthModule } from './auth/auth.module';
 import { UsuarioModule } from './usuario/usuario.module';
 import { AutomapperModule } from '@automapper/nestjs';
 import { classes } from '@automapper/classes';
+import { RelatorioModule } from './relatorio/relatorio.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     MongooseModule.forRoot(
-      'mongodb+srv://PbotApp:17yxzl2mSmE9GVDJ@cluster0.lchwd.mongodb.net/Pbot?retryWrites=true&w=majority',
+      'mongodb://127.0.0.1:27017/local',
+      //'mongodb+srv://PbotApp:17yxzl2mSmE9GVDJ@cluster0.lchwd.mongodb.net/Pbot?retryWrites=true&w=majority',
     ),
     AutomapperModule.forRoot({
       strategyInitializer: classes(),
@@ -27,6 +29,7 @@ import { classes } from '@automapper/classes';
     ServicoModule,
     AuthModule,
     UsuarioModule,
+    RelatorioModule,
   ],
   controllers: [AppController],
   providers: [AppService],

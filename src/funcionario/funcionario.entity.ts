@@ -3,7 +3,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 export type FuncionarioDocument = Funcionario & Document;
-@Schema()
+@Schema({ timestamps: true })
 export class Funcionario extends Document {
   @Prop()
   @AutoMap()

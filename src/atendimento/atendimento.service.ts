@@ -22,4 +22,13 @@ export class AtendimentoService extends CrudService<Atendimento> {
       .populate('servicos', null, Servico.name)
       .exec();
   }
+
+  override async findById(id: string): Promise<Atendimento> {
+    return await this.model
+      .findById(id)
+      .populate('cliente', null, Cliente.name)
+      .populate('funcionario', null, Funcionario.name)
+      .populate('servicos', null, Servico.name)
+      .exec();
+  }
 }

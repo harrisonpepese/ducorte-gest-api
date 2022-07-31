@@ -5,7 +5,7 @@ import * as mongoose from 'mongoose';
 import { Funcionario } from 'src/funcionario/funcionario.entity';
 
 export type UsuarioDocument = Usuario & Document;
-@Schema()
+@Schema({ timestamps: true })
 export class Usuario extends Document {
   @Prop()
   @AutoMap()

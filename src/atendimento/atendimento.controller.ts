@@ -47,7 +47,7 @@ export class AtendimentoController
     @Param('id') id: string,
     @Body(MapPipe(AtendimentoDto, Atendimento)) dto: Atendimento,
   ): Promise<AtendimentoDto> {
-    const result = await this.atendimentoService.create(dto);
+    const result = await this.atendimentoService.update(id, dto);
     return this.mapper.map(result, Atendimento, AtendimentoDto);
   }
   @Delete(':id')

@@ -4,7 +4,7 @@ import { Document } from 'mongoose';
 
 export type ClienteDocument = Cliente & Document;
 
-@Schema()
+@Schema({ timestamps: true })
 export class Cliente extends Document {
   @Prop()
   @AutoMap()
