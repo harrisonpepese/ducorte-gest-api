@@ -55,6 +55,14 @@ export class AtendimentoProfile extends AutomapperProfile {
             (destination) => destination.id,
             mapFrom((source) => source.id),
           ),
+          forMember(
+            (destination) => destination.cliente._id,
+            mapFrom((source) => source.clienteId),
+          ),
+          forMember(
+            (destination) => destination.funcionario._id,
+            mapFrom((source) => source.funcionarioId),
+          ),
         );
     };
   }

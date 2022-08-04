@@ -17,8 +17,7 @@ import { RelatorioModule } from './relatorio/relatorio.module';
   imports: [
     ConfigModule.forRoot(),
     MongooseModule.forRoot(
-      'mongodb://127.0.0.1:27017/local',
-      //'mongodb+srv://PbotApp:17yxzl2mSmE9GVDJ@cluster0.lchwd.mongodb.net/Pbot?retryWrites=true&w=majority',
+      'mongodb+srv://PbotApp:17yxzl2mSmE9GVDJ@cluster0.lchwd.mongodb.net/Pbot?retryWrites=true&w=majority',
     ),
     AutomapperModule.forRoot({
       strategyInitializer: classes(),

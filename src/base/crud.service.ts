@@ -19,7 +19,8 @@ export class CrudService<entity> implements ICrudService<entity> {
     return entity;
   }
   async update(id: string, dto: entity): Promise<any> {
-    return this.model.updateOne({ _id: id }, { $set: dto }).exec();
+    await this.model.updateOne({ _id: id }, { $set: dto }).exec();
+    return this.findById(id);
   }
   async delete(id: string): Promise<any> {
     const entity = await this.findById(id);
