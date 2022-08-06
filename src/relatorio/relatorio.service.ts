@@ -34,7 +34,65 @@ export class RelatorioService {
       await this.AtendimentosFinalizados(date),
     ];
   }
-
+  public async clienteStatics(id: string): Promise<any> {
+    const result = await this.atendimentoModel
+      .find({
+        cliente: id,
+        status: AtendimentoStatus.finalizado,
+      })
+      .sort({ createdAt: 1 });
+    return {
+      atendimentos: result.length,
+      ultimoAtendimento: result.length
+        ? dayjs(result[result.length - 1]['createdAt']).format(
+            'DD/MM/YYYY hh:mm',
+          )
+        : 'Não tem',
+      totalServicos: result.reduce((acc, curr) => {
+        return acc + curr.servicos.length;
+      }, 0),
+    };
+  }
+  public async funcionarioStatics(id: string): Promise<any> {
+    const { initDate, endDate } = this.getDateRange(new Date());
+    const result = await this.atendimentoModel
+      .find({
+        funcionario: id,
+        data: { $gte: initDate, $lte: endDate },
+        status: AtendimentoStatus.finalizado,
+      })
+      .sort({ createdAt: 1 });
+    return {
+      atendimentos: result.length,
+      ultimoAtendimento: result.length
+        ? dayjs(result[result.length - 1]['createdAt']).format(
+            'DD/MM/YYYY hh:mm',
+          )
+        : 'Não tem',
+      totalServicos: result.reduce((acc, curr) => {
+        return acc + curr.servicos.length;
+      }, 0),
+    };
+  }
+  public async servicoStatics(id: string): Promise<any> {
+    const { initDate, endDate } = this.getDateRange(new Date());
+    const result = await this.atendimentoModel
+      .find({
+        servicos: { $contains: [id] },
+        data: { $gte: initDate, $lte: endDate },
+        status: AtendimentoStatus.finalizado,
+      })
+      .sort({ createdAt: 1 });
+    return {
+      atendimentos: result.length,
+      ultimoAtendimento: result.length
+        ? dayjs(result[result.length - 1]['createdAt']).format(
+            'DD/MM/YYYY hh:mm',
+          )
+        : 'Não tem',
+      totalServicos: result.length,
+    };
+  }
   private getDateRange(date: Date): { initDate: Date; endDate: Date } {
     return {
       initDate: dayjs(date).startOf('d').toDate(),
