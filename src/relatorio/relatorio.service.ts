@@ -8,6 +8,7 @@ import {
   AtendimentoStatus,
 } from 'src/atendimento/atendimento.entity';
 import { Cliente, ClienteDocument } from 'src/cliente/cliente.entity';
+import { Servico } from 'src/servico/servico.entity';
 
 @Injectable()
 export class RelatorioService {
@@ -32,7 +33,25 @@ export class RelatorioService {
       await this.ServicosDia(date),
       await this.ClientesNovosDia(date),
       await this.AtendimentosFinalizados(date),
+      await this.TotalVendidoDia(date),
     ];
+  }
+  public async TotalVendidoDia(date: Date): Promise<any> {
+    const { initDate, endDate } = this.getDateRange(new Date());
+    const results = await this.atendimentoModel
+      .find({
+        data: { $gte: initDate, $lte: endDate },
+        status: AtendimentoStatus.finalizado,
+      })
+      .populate('servicos', null, Servico.name);
+    const value = results.reduce((acc, curr) => {
+      const value = curr.servicos.reduce((acc, curr) => acc + curr.valor, 0);
+      return acc + value;
+    }, 0);
+    return {
+      name: 'Total finalizado R$',
+      value: `R$ ${value.toFixed(2)}`.replace('.', ','),
+    };
   }
   public async clienteStatics(id: string): Promise<any> {
     const result = await this.atendimentoModel
@@ -95,8 +114,8 @@ export class RelatorioService {
   }
   private getDateRange(date: Date): { initDate: Date; endDate: Date } {
     return {
-      initDate: dayjs(date).startOf('d').toDate(),
-      endDate: dayjs(date).endOf('d').toDate(),
+      initDate: dayjs(date.toISOString()).startOf('d').toDate(),
+      endDate: dayjs(date.toISOString()).endOf('d').toDate(),
     };
   }
 

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsuarioSingUp } from 'src/usuario/usuario.dto';
 import { Usuario } from 'src/usuario/usuario.entity';
@@ -25,7 +25,24 @@ export class AuthService {
       access_token: this.jwtService.sign(payload),
     };
   }
-  async SingUp(usuario: UsuarioSingUp) {
+  async SingUp(usuarioSingup: UsuarioSingUp) {
+    const usuario: Usuario = await this.usuarioService.findByUserName(
+      usuarioSingup.username,
+    );
+    if (usuario) {
+      throw new HttpException('usuario já existe', HttpStatus.BAD_REQUEST);
+    }
     return await this.usuarioService.create(usuario);
+  }
+
+  async ForgotPassword(email: string) {
+    const usuario: Usuario = await this.usuarioService.findByEmail(email);
+    if (!usuario) {
+      throw new HttpException(
+        'Esse email não está cadastrado na base',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+    return await this.usuarioService.changePassword(usuario.username, '123456');
   }
 }

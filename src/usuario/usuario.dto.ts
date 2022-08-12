@@ -10,3 +10,7 @@ export class UserDto {
   username: string;
   email: string;
 }
+
+export type UserForgotPasswordReq = {
+  email: string;
+};

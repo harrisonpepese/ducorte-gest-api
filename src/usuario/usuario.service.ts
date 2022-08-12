@@ -26,6 +26,9 @@ export class UsuarioService {
   async findByUserName(username: string): Promise<Usuario | undefined> {
     return await this.model.findOne({ username: username });
   }
+  async findByEmail(email: string): Promise<Usuario | undefined> {
+    return await this.model.findOne({ email: email });
+  }
   async findBySingInDto(userDto: UsuarioSingUp): Promise<Usuario | undefined> {
     return await this.model.findOne({
       $or: [{ username: userDto.username }, { email: userDto.email }],

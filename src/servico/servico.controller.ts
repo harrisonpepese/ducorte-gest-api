@@ -8,6 +8,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
@@ -31,6 +32,11 @@ export class ServicoController implements ICrudController<Servico, ServicoDto> {
   @Get()
   async find(): Promise<ServicoDto[]> {
     const result = await this.service.find();
+    return this.mapper.mapArray(result, Servico, ServicoDto);
+  }
+  @Get('/query')
+  async findQuery(@Query('filter') filter: string): Promise<ServicoDto[]> {
+    const result = await this.service.findQuery(filter);
     return this.mapper.mapArray(result, Servico, ServicoDto);
   }
   @Post()

@@ -9,7 +9,7 @@ import {
 import { AuthService } from './auth/auth.service';
 import { JwtAuthGuard } from './auth/guards/jwt.guard';
 import { LocalAuthGuard } from './auth/guards/local.guard';
-import { UsuarioSingUp } from './usuario/usuario.dto';
+import { UserForgotPasswordReq, UsuarioSingUp } from './usuario/usuario.dto';
 
 @Controller()
 export class AppController {
@@ -25,6 +25,10 @@ export class AppController {
   }
   @Post('auth/singUp')
   async cadastrar(@Body() userSingup: UsuarioSingUp) {
-    const user = await this.authService.SingUp(userSingup);
+    return await this.authService.SingUp(userSingup);
+  }
+  @Post('auth/forgotPassword')
+  async esquecerSenha(@Body() forgotReq: UserForgotPasswordReq) {
+    return await this.authService.ForgotPassword(forgotReq.email);
   }
 }

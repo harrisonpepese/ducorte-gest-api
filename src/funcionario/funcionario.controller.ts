@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { FuncionarioDto } from './funcionario.dto';
@@ -35,6 +36,11 @@ export class FuncionarioController
     const result = await this.funcionarioService.find();
     return this.mapper.mapArray(result, Funcionario, FuncionarioDto);
   }
+  @Get('/query')
+  async findQuery(@Query('filter') filter: string): Promise<FuncionarioDto[]> {
+    const result = await this.funcionarioService.findQuery(filter);
+    return this.mapper.mapArray(result, Funcionario, FuncionarioDto);
+  }
   @Post()
   async create(
     @Body(MapPipe(FuncionarioDto, Funcionario)) funcionarioDto: Funcionario,
@@ -49,10 +55,10 @@ export class FuncionarioController
   }
   @Put(':id')
   async update(
-    @Param('id') params,
+    @Param('id') id: string,
     @Body(MapPipe(FuncionarioDto, Funcionario)) funcionarioDto: Funcionario,
   ): Promise<FuncionarioDto> {
-    return await this.funcionarioService.update(params.id, funcionarioDto);
+    return await this.funcionarioService.update(id, funcionarioDto);
   }
   @Delete(':id')
   async delete(@Param('id') id: string): Promise<void> {

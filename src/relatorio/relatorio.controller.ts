@@ -1,4 +1,4 @@
-import { Controller, Get, Param, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { RelatorioService } from './relatorio.service';
 
@@ -8,8 +8,8 @@ export class RelatorioController {
   constructor(private service: RelatorioService) {}
 
   @Get('/dashboard')
-  async dashboard(): Promise<any> {
-    return this.service.dashboard(new Date());
+  async dashboard(@Query('data') data): Promise<any> {
+    return this.service.dashboard(data ? new Date(data) : new Date());
   }
   @Get('/cliente/:id')
   async clienteDetails(@Param('id') id: string): Promise<any> {

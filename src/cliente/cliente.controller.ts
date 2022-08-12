@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 
@@ -31,6 +32,11 @@ export class ClienteController implements ICrudController<Cliente, ClienteDto> {
   @Get()
   async find(): Promise<ClienteDto[]> {
     const reponse = await this.clienteService.find();
+    return reponse.map((x) => this.mapper.map(x, Cliente, ClienteDto));
+  }
+  @Get('/query')
+  async findQuery(@Query('filter') filter: string): Promise<ClienteDto[]> {
+    const reponse = await this.clienteService.findQuery(filter);
     return reponse.map((x) => this.mapper.map(x, Cliente, ClienteDto));
   }
   @Get(':id')
