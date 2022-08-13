@@ -37,7 +37,7 @@ export class RelatorioService {
     ];
   }
   public async TotalVendidoDia(date: Date): Promise<any> {
-    const { initDate, endDate } = this.getDateRange(new Date());
+    const { initDate, endDate } = this.getDateRange(date);
     const results = await this.atendimentoModel
       .find({
         data: { $gte: initDate, $lte: endDate },
