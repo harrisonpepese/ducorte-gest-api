@@ -114,8 +114,8 @@ export class RelatorioService {
   }
   private getDateRange(date: Date): { initDate: Date; endDate: Date } {
     return {
-      initDate: dayjs(date.toISOString()).startOf('d').toDate(),
-      endDate: dayjs(date.toISOString()).endOf('d').toDate(),
+      initDate: new Date(dayjs(date.toISOString()).startOf('d').toISOString()),
+      endDate: new Date(dayjs(date.toISOString()).endOf('d').toISOString()),
     };
   }
 
